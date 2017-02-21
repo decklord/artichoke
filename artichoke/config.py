@@ -75,17 +75,16 @@ class Config(object):
 
     def _validate_section_name(self, name):
         if name[0] == '_':
-            msg = "Section %s collides with a global variable of the same name."
-            msg %= name
+            msg = "Section {} collides with a global variable of the same name.".format(name)
             raise InvalidConfig(msg)
 
         if name is not "Global" and name in self._sections['Global']:
-            msg = "Section %s collides with a global variable of the same name."
+            msg = "Section {} collides with a variable of the same name on [Global].".format(name)
             raise InvalidConfig(msg)
 
     def _validate_global_variable(self, name):
         if name in self._sections:
-            msg = "Section %s collides with a global variable of the same name."
+            msg = "Parameter {} collides with a Section of the same name.".format(name)
             raise InvalidConfig(msg)
 
     def __getattr__(self, name):
